@@ -110,8 +110,7 @@ class GameFromRequest():
 
   def __init__(self, request):
     self.user = request.get('u')
-    game_key = request.get('g')
-    if game_key:
+    if game_key := request.get('g'):
       self.game = Game.get_by_key_name(game_key)
 
   def get_game_data(self):
@@ -161,7 +160,7 @@ class MainPage(webapp.RequestHandler):
       game.put()
 
 
-    game_link = 'http://localhost:8080/?g=' + game_key
+    game_link = f'http://localhost:8080/?g={game_key}'
 
     if game:
       token = channel.create_channel(user + game_key)
